@@ -1,6 +1,6 @@
 package fr.emse.test;
 
-class Money {
+class Money  implements IMoney {
     private int fAmount;
     private String fCurrency;
 
@@ -17,9 +17,14 @@ class Money {
         return fCurrency;
     }
 
-    public Money add(Money m) {
-        return new Money(amount() + m.amount(), currency());
+    @Override
+    public IMoney add(IMoney aMoney) {
+        if (aMoney.currency().equals(currency())) {
+            return new Money(amount() + aMoney.amount(), currency());
+        }
+        return new MoneyBag(this, (Money) aMoney);
     }
+
 
     @Override
     public boolean equals(Object obj) {

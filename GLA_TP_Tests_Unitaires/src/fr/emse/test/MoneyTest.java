@@ -4,20 +4,29 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class MoneyTest {
-    private Money m12CHF;
-    private Money m14CHF;
+    private Money f12CHF;
+    private Money f14CHF;
+    private Money f7USD;
+    private Money f21USD;
+    private MoneyBag fMB1;
+    private MoneyBag fMB2;
     
     @BeforeEach
     public void setUp() {
-        m12CHF = new Money(12, "CHF");
-        m14CHF = new Money(14, "CHF");
+        f12CHF = new Money(12, "CHF");
+        f14CHF = new Money(14, "CHF");
+        f7USD = new Money(7, "USD");
+        f21USD = new Money(21, "USD");
+        fMB1 = new MoneyBag(f12CHF, f7USD);
+        fMB2 = new MoneyBag(f14CHF, f21USD);
     }
 
     @Test
-    public void testSimpleAdd() {
-        Money expected = new Money(26, "CHF");
-        Money result = m12CHF.add(m14CHF);
-        assertTrue(expected.equals(result));
+    public void testMixedSimpleAdd() {
+        // [12 CHF] + [7 USD] == {[12 CHF][7 USD]}
+        Money bag[] = { f12CHF, f7USD };
+        MoneyBag expected = new MoneyBag(bag);
+        assertEquals(expected, f12CHF.add(f7USD));
     }
     
     @Test
