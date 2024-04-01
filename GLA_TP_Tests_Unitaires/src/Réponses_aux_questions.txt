@@ -16,3 +16,19 @@ Si le test passe correctement, cela signifie que l'implémentation de la méthod
 Si le test échoue, cela signifie qu'il y a probablement un problème dans l'implémentation de la méthode add dans la classe Money.
 
 Mais dans notre cas, le test s'est passé correctement.
+
+
+		5 – Relancer la classe de test MoneyTest. Que se passe-t-il ? 
+
+==> Nous avons désormais deux tests en éxecution : 
+		* testSimpleAdd : qui fait les mêmes choses que précedentes 
+		* testEquals : qui crée deux objets Money : m12CHF et m14CHF,
+	tous deux en "CHF" avec des montants de 12 et 14 respectivement.
+
+Effectue ensuite plusieurs assertions pour tester l'égalité des objets :
+	assertTrue(!m12CHF.equals(null)) : Vérifie que m12CHF n'est pas égal à null.
+	assertEquals(m12CHF, m12CHF) : Vérifie que m12CHF est égal à lui-même.
+	assertEquals(m12CHF, new Money(12, "CHF")) : Vérifie que m12CHF est égal à un nouvel objet Money avec les mêmes valeurs (12 et "CHF").
+	assertTrue(!m12CHF.equals(m14CHF)) : Vérifie que m12CHF n'est pas égal à m14CHF.
+
+
