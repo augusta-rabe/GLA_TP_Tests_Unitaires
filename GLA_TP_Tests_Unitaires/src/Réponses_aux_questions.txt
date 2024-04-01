@@ -1,0 +1,18 @@
+
+
+			REPONSES AUX QUESTIONS :
+		
+		3 – Tester la méthode add avec le cas de test précédemment défini : « Run > Run As > JUnit test ».
+		 Que se passe-t-il ? Comment l'expliquez-vous ?
+
+==> Lorsque on exécute le test testSimpleAdd dans MoneyTest, on crée deux objets Money avec les montants 12 et 14, tous deux en "CHF".
+
+Ensuite, on appele la méthode add sur m12CHF avec m14CHF comme argument, ce qui retourne un nouvel objet Money avec un montant de 26 et la devise "CHF".
+
+Ensuite, on utilise assertTrue(expected.equals(result)) pour vérifier si l'objet result qu'on obtient de l'addition est égal à l'objet expected qu'on a prédéfini.
+
+Si le test passe correctement, cela signifie que l'implémentation de la méthode add dans la classe Money est correcte, car l'addition de 12 CHF et 14 CHF devrait effectivement donner 26 CHF.
+
+Si le test échoue, cela signifie qu'il y a probablement un problème dans l'implémentation de la méthode add dans la classe Money.
+
+Mais dans notre cas, le test s'est passé correctement.
