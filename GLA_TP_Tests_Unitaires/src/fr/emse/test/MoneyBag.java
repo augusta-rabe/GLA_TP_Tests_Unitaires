@@ -2,8 +2,12 @@ package fr.emse.test;
 
 import java.util.Vector;
 
-class MoneyBag {
+class MoneyBag implements IMoney {
     private Vector<Money> fMonies = new Vector<Money>();
+
+    public MoneyBag() {
+        // Constructeur par défaut vide
+    }
 
     MoneyBag(Money m1, Money m2) {
         appendMoney(m1);
@@ -25,9 +29,36 @@ class MoneyBag {
             if (i >= fMonies.size()) {
                 fMonies.add(m);
             } else {
-                fMonies.set(i, fMonies.get(i).add(m));
+                fMonies.set(i, (Money) fMonies.get(i).add(m));
             }
         }
+    }
+
+    @Override
+    public IMoney add(IMoney m) {
+        return m.addMoneyBag(this);
+    }
+
+    @Override
+    public IMoney addMoney(Money m) {
+        return new MoneyBag();
+    }
+
+    @Override
+    public IMoney addMoneyBag(MoneyBag mb) {
+        MoneyBag result = new MoneyBag();
+        Vector<Money> bagMonies = mb.getMonies();
+        for (int i = 0; i < fMonies.size(); i++) {
+            result.appendMoney(fMonies.get(i));
+        }
+        for (int i = 0; i < bagMonies.size(); i++) {
+            result.appendMoney(bagMonies.get(i));
+        }
+        return result;
+    }
+
+    private Vector<Money> getMonies() {
+        return fMonies;
     }
 
     @Override
