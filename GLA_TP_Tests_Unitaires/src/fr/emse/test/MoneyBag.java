@@ -2,21 +2,22 @@ package fr.emse.test;
 
 import java.util.Vector;
 
-class MoneyBag implements IMoney {
+public class MoneyBag implements IMoney {
     private Vector<Money> fMonies = new Vector<Money>();
 
     public MoneyBag() {
         // Constructeur par défaut vide
     }
 
-    MoneyBag(Money m1, Money m2) {
+    public MoneyBag(Money m1, Money m2) {
         appendMoney(m1);
         appendMoney(m2);
     }
 
-    MoneyBag(Money bag[]) {
-        for (int i = 0; i < bag.length; i++)
+    public MoneyBag(Money bag[]) {
+        for (int i = 0; i < bag.length; i++) {
             appendMoney(bag[i]);
+        }
     }
 
     private void appendMoney(Money m) {
@@ -24,8 +25,9 @@ class MoneyBag implements IMoney {
             fMonies.add(m);
         } else {
             int i = 0;
-            while ((i < fMonies.size()) && (!(fMonies.get(i).currency().equals(m.currency()))))
+            while (i < fMonies.size() && !fMonies.get(i).currency().equals(m.currency())) {
                 i++;
+            }
             if (i >= fMonies.size()) {
                 fMonies.add(m);
             } else {
@@ -41,7 +43,10 @@ class MoneyBag implements IMoney {
 
     @Override
     public IMoney addMoney(Money m) {
-        return new MoneyBag();
+        MoneyBag result = new MoneyBag();
+        result.addMoneyBag(this);
+        result.appendMoney(m);
+        return result.simplify();
     }
 
     @Override
@@ -54,11 +59,19 @@ class MoneyBag implements IMoney {
         for (int i = 0; i < bagMonies.size(); i++) {
             result.appendMoney(bagMonies.get(i));
         }
-        return result;
+        return result.simplify();
     }
 
     private Vector<Money> getMonies() {
         return fMonies;
+    }
+
+    private MoneyBag simplify() {
+        MoneyBag result = new MoneyBag();
+        for (Money money : fMonies) {
+            result = (MoneyBag) result.addMoney(money);
+        }
+        return result;
     }
 
     @Override
@@ -71,5 +84,12 @@ class MoneyBag implements IMoney {
         }
         MoneyBag moneyBag = (MoneyBag) obj;
         return fMonies.equals(moneyBag.fMonies);
+    }
+
+    @Override
+    public String toString() {
+        return "MoneyBag{" +
+                "fMonies=" + fMonies +
+                '}';
     }
 }
